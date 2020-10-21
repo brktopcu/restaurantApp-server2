@@ -13,8 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler
-    public final ResponseEntity<Object> handleNotFoundException(RestaurantNotFoundException ex, WebRequest request){
-        RestaurantNotFoundExceptionResponse response = new RestaurantNotFoundExceptionResponse(ex.getMessage());
+    public final ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request){
+        NotFoundExceptionResponse response = new NotFoundExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

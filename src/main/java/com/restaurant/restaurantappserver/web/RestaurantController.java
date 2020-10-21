@@ -1,11 +1,9 @@
 package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
-import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,16 +22,16 @@ public class RestaurantController {
     @PostMapping
     public ResponseEntity<?> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, BindingResult result){
 
-        ResponseEntity<?> errorMap = validationErrorService.validationServiceMap(result);
+        ResponseEntity<?> errorMap = validationErrorService.validationMap(result);
         if(errorMap!=null) return errorMap;
 
-        restaurantService.saveNewRestaurant(restaurant);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Restaurant newRestaurant = restaurantService.saveNewRestaurant(restaurant);
+        return new ResponseEntity<>(newRestaurant, HttpStatus.CREATED);
 
     }
 
     @GetMapping("/{restaurantId}")
-    public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId){
         Restaurant restaurantFound = restaurantService.getById(restaurantId);
         return new ResponseEntity<>(restaurantFound, HttpStatus.OK);
     }

@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RestaurantNotFoundExceptionResponse {
+public class NotFoundExceptionResponse {
 
     @JsonProperty("Not Found")
     private String notFound;

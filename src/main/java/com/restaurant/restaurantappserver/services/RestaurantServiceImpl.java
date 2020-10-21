@@ -1,13 +1,11 @@
 package com.restaurant.restaurantappserver.services;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
-import com.restaurant.restaurantappserver.exceptions.RestaurantNotFoundException;
+import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Optional;
 
 @Service
@@ -23,7 +21,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         if(restaurantFound.isPresent()){
             return restaurantFound.get();
         }else{
-            throw new RestaurantNotFoundException("Restaurant ID: "+restaurantId+" doesn't exist!");
+            throw new NotFoundException("Restaurant ID: "+restaurantId+" doesn't exist!");
         }
     }
 
