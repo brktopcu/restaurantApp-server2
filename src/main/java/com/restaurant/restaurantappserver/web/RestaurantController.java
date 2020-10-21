@@ -3,6 +3,7 @@ package com.restaurant.restaurantappserver.web;
 import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
+import com.restaurant.restaurantappserver.services.ValidationErrorServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
