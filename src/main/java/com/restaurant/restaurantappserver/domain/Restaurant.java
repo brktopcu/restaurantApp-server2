@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,14 +33,13 @@ public class Restaurant {
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Rtable> tableList;
+    private List<Rtable> tableList = new ArrayList<>();
+
+
 
     //TODO add pictures
     //TODO add thumbnail
-
-
     //TODO add menu pic
 
 }

@@ -1,5 +1,6 @@
 package com.restaurant.restaurantappserver.services;
 
+import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.TableRepository;
@@ -22,4 +23,13 @@ public class TableServiceImpl implements TableService {
         }
         return rtableFound.get();
     }
+
+    @Override
+    public Rtable saveNewTable(Rtable rtable, Restaurant restaurant) {
+        rtable.setRestaurant(restaurant);
+
+        return tableRepository.save(rtable);
+    }
+
+
 }
