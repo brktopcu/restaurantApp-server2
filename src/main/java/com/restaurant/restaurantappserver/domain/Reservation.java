@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class Reservation {
 
     private String reservationEnd;
 
-    @NotNull(message = "Guest count is required")
+    @Min(value = 1, message = "Guest count should be greater than zero")
     private int guestCount;
 
     @JsonIgnore
@@ -35,5 +36,8 @@ public class Reservation {
     @JoinColumn(name = "rtable_id")
     private Rtable rtable;
 
-    //TODO OneToMany w user
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private ApplicationUser user;
 }

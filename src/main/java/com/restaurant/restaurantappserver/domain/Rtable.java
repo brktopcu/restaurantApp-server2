@@ -33,12 +33,14 @@ public class Rtable {
 
     private String tableDescription;
 
+    @OneToMany(mappedBy = "rtable", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList = new ArrayList<>();
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "rtable", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList = new ArrayList<>();
+
 
 }
