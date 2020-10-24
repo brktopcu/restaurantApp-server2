@@ -38,9 +38,8 @@ public class ReservationController {
 
         ResponseEntity<?> errorMap = validationErrorService.validationMap(bindingResult);
 
-        if(errorMap!=null){
-            return errorMap;
-        }
+        if(errorMap!=null) return errorMap;
+
 
         Rtable reservationTable = tableService.getById(tableId);
         Reservation reservationToSave = reservationService.saveNewReservation(reservation, reservationTable);

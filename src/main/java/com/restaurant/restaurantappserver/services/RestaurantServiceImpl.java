@@ -18,11 +18,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant getById(Long restaurantId) {
 
         Optional<Restaurant> restaurantFound = restaurantRepository.findById(restaurantId);
-        if(restaurantFound.isPresent()){
-            return restaurantFound.get();
-        }else{
-            throw new NotFoundException("Restaurant ID: "+restaurantId+" doesn't exist!");
-        }
+        if(restaurantFound.isEmpty()) throw new NotFoundException("Restaurant ID: "+restaurantId+" doesn't exist!");
+
+        return restaurantFound.get();
     }
 
     @Override

@@ -19,9 +19,7 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation getBydId(Long id) {
         Optional<Reservation> reservationFound = reservationRepository.findById(id);
 
-        if(reservationFound.isEmpty()){
-            throw new NotFoundException("Reservation ID: " + id + " doesn't exist");
-        }
+        if(reservationFound.isEmpty()) throw new NotFoundException("Reservation ID: " + id + " doesn't exist");
 
         return reservationFound.get();
     }

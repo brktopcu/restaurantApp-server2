@@ -18,9 +18,8 @@ public class TableServiceImpl implements TableService {
     @Override
     public Rtable getById(Long id) {
         Optional<Rtable> rtableFound = tableRepository.findById(id);
-        if(!rtableFound.isPresent()){
-            throw new NotFoundException("Table ID: "+id+" doesn't exist!");
-        }
+        if(rtableFound.isEmpty())throw new NotFoundException("Table ID: "+id+" doesn't exist!");
+
         return rtableFound.get();
     }
 
