@@ -26,6 +26,9 @@ public class Restaurant {
     @NotBlank(message = "Restaurant name is required")
     private String restaurantName;
 
+    @NotBlank(message = "Restaurant city is required")
+    private String restaurantCity;
+
     @NotBlank(message = "Restaurant address is required")
     private String restaurantAddress;
 

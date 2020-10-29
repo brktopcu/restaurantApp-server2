@@ -1,16 +1,19 @@
 package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
+import com.restaurant.restaurantappserver.services.HeaderService;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
 import com.restaurant.restaurantappserver.services.ValidationErrorServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,6 +22,7 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final ValidationErrorService validationErrorService;
+    private final HeaderService headerService;
 
     @PostMapping
     public ResponseEntity<?> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, BindingResult result){
@@ -34,7 +38,16 @@ public class RestaurantController {
     @GetMapping("/{restaurantId}")
     public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId){
         Restaurant restaurantFound = restaurantService.getById(restaurantId);
-        return new ResponseEntity<>(restaurantFound, HttpStatus.OK);
+
+        return new ResponseEntity<>(restaurantFound, headerService.getHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Restaurant>> getAllRestaurants(){
+        List<Restaurant> restaurantList = restaurantService.getAllRestaurants();
+
+        return new ResponseEntity<>(restaurantList, headerService.getHeaders(), HttpStatus.OK);
+
     }
 
 }

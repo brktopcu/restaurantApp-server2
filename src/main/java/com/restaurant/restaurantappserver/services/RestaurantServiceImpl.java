@@ -6,6 +6,7 @@ import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         if(restaurantFound.isEmpty()) throw new NotFoundException("Restaurant ID: "+restaurantId+" doesn't exist!");
 
         return restaurantFound.get();
+    }
+
+    @Override
+    public List<Restaurant> getAllRestaurants() {
+        List<Restaurant> restaurantList = restaurantRepository.findAll();
+
+        return restaurantList;
     }
 
     @Override
