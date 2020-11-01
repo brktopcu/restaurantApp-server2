@@ -11,4 +11,6 @@ public interface RestaurantService {
     List<Restaurant> getAllRestaurants();
 
     Restaurant saveNewRestaurant(Restaurant restaurant);
+
+    List<Restaurant> searchByRestaurantName(String search);
 }

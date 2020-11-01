@@ -50,4 +50,12 @@ public class RestaurantController {
 
     }
 
+    @GetMapping("/search/{searchTerm}")
+    public ResponseEntity<List<Restaurant>> searchRestaurantName(@PathVariable String searchTerm){
+        List<Restaurant> restaurantList = restaurantService.searchByRestaurantName(searchTerm);
+
+        return new ResponseEntity<>(restaurantList, headerService.getHeaders(), HttpStatus.OK);
+
+    }
+
 }

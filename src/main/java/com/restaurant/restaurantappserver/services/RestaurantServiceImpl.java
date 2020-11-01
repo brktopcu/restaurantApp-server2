@@ -31,12 +31,22 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantList;
     }
 
+
+
     @Override
     public Restaurant saveNewRestaurant(Restaurant restaurant) {
 
         Restaurant savedNewRestaurant = restaurantRepository.save(restaurant);
 
         return savedNewRestaurant;
+    }
+
+    @Override
+    public List<Restaurant> searchByRestaurantName(String search) {
+        List<Restaurant> foundList = restaurantRepository.findByRestaurantNameContaining(search);
+        if(foundList.isEmpty()) throw new NotFoundException("Search results are empty!");
+
+        return foundList;
     }
 
 
