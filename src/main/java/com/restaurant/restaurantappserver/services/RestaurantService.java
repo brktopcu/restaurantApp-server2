@@ -13,4 +13,8 @@ public interface RestaurantService {
     Restaurant saveNewRestaurant(Restaurant restaurant);
 
     List<Restaurant> searchByRestaurantName(String search);
+
+    List<String> findDistinctRestaurantCities();
+
+    List<String> findDistinctRestaurantCategories();
 }

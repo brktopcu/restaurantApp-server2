@@ -49,5 +49,19 @@ public class RestaurantServiceImpl implements RestaurantService {
         return foundList;
     }
 
+    @Override
+    public List<String> findDistinctRestaurantCities() {
+        List<String> foundCities = restaurantRepository.findDistinctRestaurants();
+        if(foundCities.isEmpty()) throw new NotFoundException("Search results are empty!");
 
+        return foundCities;
+    }
+
+    @Override
+    public List<String> findDistinctRestaurantCategories() {
+        List<String> foundCategories = restaurantRepository.findDistinctCategories();
+        if(foundCategories.isEmpty()) throw new NotFoundException("Search results are empty!");
+
+        return foundCategories;
+    }
 }

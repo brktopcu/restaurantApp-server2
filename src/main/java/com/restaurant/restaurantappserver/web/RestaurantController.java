@@ -58,4 +58,18 @@ public class RestaurantController {
 
     }
 
+    @GetMapping("/search/cities")
+    public ResponseEntity<List<String>> getRestaurantCities(){
+        List<String> cityList = restaurantService.findDistinctRestaurantCities();
+
+        return new ResponseEntity<>(cityList, headerService.getHeaders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/categories")
+    public ResponseEntity<List<String>> getRestaurantCategories(){
+        List<String> categoryList = restaurantService.findDistinctRestaurantCategories();
+
+        return new ResponseEntity<>(categoryList, headerService.getHeaders(), HttpStatus.OK);
+    }
+
 }
