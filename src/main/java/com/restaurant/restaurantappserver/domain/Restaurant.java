@@ -1,13 +1,14 @@
 package com.restaurant.restaurantappserver.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,11 @@ public class Restaurant {
     @NotBlank(message = "Restaurant address is required")
     private String restaurantAddress;
 
-    private String restaurantCategory; //TODO create an enum for restaurant category
+    private String restaurantCategory;
+
+    @Min(value = 1, message = "Rating should be greater than or equal to 1")
+    @Max(value = 5, message = "Rating should be less than or equal to 5")
+    private Integer restaurantRating;
 
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
