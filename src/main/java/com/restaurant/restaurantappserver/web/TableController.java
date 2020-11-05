@@ -1,6 +1,5 @@
 package com.restaurant.restaurantappserver.web;
 
-import com.restaurant.restaurantappserver.domain.Reservation;
 import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.services.RestaurantService;
