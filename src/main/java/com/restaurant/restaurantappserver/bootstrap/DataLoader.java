@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -28,7 +30,9 @@ public class DataLoader implements CommandLineRunner {
         Restaurant r1 = Restaurant.builder()
                 .restaurantName("Çalıkuşu")
                 .restaurantCity("Samsun")
-                .restaurantRating(4)
+                .restaurantRating(BigDecimal.valueOf(4.00))
+                .totalRating(40)
+                .timesRated(1)
                 .restaurantAddress("İstiklal Caddesi No:4")
                 .phoneNumber("321413542")
                 .restaurantCategory("Türk Mutfağı")
@@ -37,7 +41,9 @@ public class DataLoader implements CommandLineRunner {
         Restaurant r2 = Restaurant.builder()
                 .restaurantName("Ocakbaşı")
                 .restaurantCity("İstanbul")
-                .restaurantRating(3)
+                .restaurantRating(BigDecimal.valueOf(3.00))
+                .totalRating(30)
+                .timesRated(1)
                 .restaurantAddress("Aydın Sok. No:19")
                 .phoneNumber("321422542")
                 .restaurantCategory("Türk Mutfağı")
@@ -46,7 +52,9 @@ public class DataLoader implements CommandLineRunner {
         Restaurant r3 = Restaurant.builder()
                 .restaurantName("Pizza Nella Italiano")
                 .restaurantCity("İstanbul")
-                .restaurantRating(5)
+                .restaurantRating(BigDecimal.valueOf(5.00))
+                .totalRating(50)
+                .timesRated(1)
                 .restaurantAddress("Abc Sok. No:39")
                 .phoneNumber("321122542")
                 .restaurantCategory("İtalyan")
@@ -55,7 +63,9 @@ public class DataLoader implements CommandLineRunner {
         Restaurant r4 = Restaurant.builder()
                 .restaurantName("Los Altos")
                 .restaurantCity("İstanbul")
-                .restaurantRating(3)
+                .restaurantRating(BigDecimal.valueOf(3.50))
+                .totalRating(35)
+                .timesRated(1)
                 .restaurantAddress("Gümüşsuyu Sok. No:22")
                 .phoneNumber("32142444")
                 .restaurantCategory("Meksika")
@@ -64,7 +74,9 @@ public class DataLoader implements CommandLineRunner {
         Restaurant r5 = Restaurant.builder()
                 .restaurantName("Elvan Pasta")
                 .restaurantCity("Ankara")
-                .restaurantRating(2)
+                .restaurantRating(BigDecimal.valueOf(2.00))
+                .totalRating(20)
+                .timesRated(1)
                 .restaurantAddress("Cihangir Mah. SS Sok. No:2")
                 .phoneNumber("321964444")
                 .restaurantCategory("Pastacılık")

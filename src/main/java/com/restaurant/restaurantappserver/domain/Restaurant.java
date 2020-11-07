@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +32,13 @@ public class Restaurant {
 
     private String restaurantCategory;
 
-    @Min(value = 1, message = "Rating should be greater than or equal to 1")
-    @Max(value = 5, message = "Rating should be less than or equal to 5")
-    private Integer restaurantRating;
+    @DecimalMax( value = "5.00", message = "Rating should be less than or equal to 5")
+    @Digits(integer = 1, fraction=1)
+    private BigDecimal restaurantRating;
+
+    private Integer totalRating;
+
+    private Integer timesRated = 0;
 
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
