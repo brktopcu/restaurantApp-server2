@@ -7,6 +7,9 @@ import com.restaurant.restaurantappserver.repositories.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,9 +28,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> getAllComments(Long restaurantId) {
+        List<Comment> commentList = commentRepository.findComments(restaurantId);
+
+        return commentList;
+    }
+
+    @Override
     public Comment saveNewComment(Comment comment, Restaurant restaurant) {
 
         comment.setRestaurant(restaurant);
+        Date date = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");
+        comment.setCommentDate(ft.format(date));
         Comment savedComment = commentRepository.save(comment);
 
         return savedComment;

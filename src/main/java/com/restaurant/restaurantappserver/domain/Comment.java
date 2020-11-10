@@ -27,6 +27,8 @@ public class Comment {
     @Range(min = 0, max = 5)
     private int commentScore;
 
+    private String commentDate;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
