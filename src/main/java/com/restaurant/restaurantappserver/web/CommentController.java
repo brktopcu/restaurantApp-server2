@@ -41,6 +41,7 @@ public class CommentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("/{restaurantId}")
     public ResponseEntity<?> saveComment(@Valid @RequestBody Comment comment,
                                          BindingResult bindingResult,

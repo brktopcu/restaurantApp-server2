@@ -7,6 +7,8 @@ import com.restaurant.restaurantappserver.repositories.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +43,13 @@ public class CommentServiceImpl implements CommentService {
         Date date = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");
         comment.setCommentDate(ft.format(date));
+
+        restaurant.setTimesRated(restaurant.getTimesRated()+1);
+        restaurant.setTotalRating(restaurant.getTotalRating()+(comment.getCommentScore()*10));
+        Double tempDouble = ((double)restaurant.getTotalRating()/ restaurant.getTimesRated())/10;
+        Double finalRestRating = BigDecimal.valueOf(tempDouble).setScale(1,RoundingMode.HALF_UP).doubleValue();
+        restaurant.setRestaurantRating(finalRestRating);
+
         Comment savedComment = commentRepository.save(comment);
 
         return savedComment;

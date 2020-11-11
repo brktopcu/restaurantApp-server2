@@ -32,9 +32,7 @@ public class Restaurant {
 
     private String restaurantCategory;
 
-    @DecimalMax( value = "5.00", message = "Rating should be less than or equal to 5")
-    @Digits(integer = 1, fraction=1)
-    private BigDecimal restaurantRating;
+    private Double restaurantRating;
 
     private Integer totalRating;
 
