@@ -7,6 +7,7 @@ import com.restaurant.restaurantappserver.repositories.TableRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,12 @@ public class TableServiceImpl implements TableService {
         if(rtableFound.isEmpty())throw new NotFoundException("Table ID: "+id+" doesn't exist!");
 
         return rtableFound.get();
+    }
+
+    @Override
+    public List<Rtable> getAllTablesForRestaurant(Long id) {
+        List<Rtable> rtableList = tableRepository.findTables(id);
+        return rtableList;
     }
 
     @Override

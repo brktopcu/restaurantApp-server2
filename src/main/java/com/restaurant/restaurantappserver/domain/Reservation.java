@@ -23,13 +23,22 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long reservationId;
 
-    @NotBlank(message = "Reservation start field is required")
-    private String reservationStart;
+    @NotBlank(message = "Name is required for reservation")
+    private String reservationName;
 
-    private String reservationEnd;
+    @NotBlank(message = "Last name is required for reservation")
+    private String reservationLastName;
+
+    @NotBlank(message = "Reservation date is required")
+    private String reservationDate;
+
+    @NotBlank(message = "Reservation start field is required")
+    private String reservationPeriod;
 
     @Min(value = 1, message = "Guest count should be greater than zero")
     private int guestCount;
+
+    private String reservationNote;
 
     @JsonIgnore
     @ManyToOne

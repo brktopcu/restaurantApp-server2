@@ -30,6 +30,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservationFound, HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping("/{tableId}")
     public ResponseEntity<?> saveReservation(@Valid @RequestBody Reservation reservation,
                                              BindingResult bindingResult,
