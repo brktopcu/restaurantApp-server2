@@ -43,6 +43,7 @@ public class ReservationController {
 
         Rtable reservationTable = tableService.getById(tableId);
         Reservation reservationToSave = reservationService.saveNewReservation(reservation, reservationTable);
+        if(reservationToSave.getReservationDate() == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(reservationToSave, HttpStatus.CREATED);
 

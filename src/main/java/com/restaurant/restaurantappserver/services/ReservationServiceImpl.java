@@ -7,6 +7,7 @@ import com.restaurant.restaurantappserver.repositories.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,12 +26,26 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation saveNewReservation(Reservation reservation, Rtable rtable) {
+    public List<Reservation> getAllReservations() {
+        return reservationRepository.findAll();
+    }
 
+    @Override
+    public Reservation saveNewReservation(Reservation reservation, Rtable rtable) {
         reservation.setRtable(rtable);
 
-        Reservation newReservation = reservationRepository.save(reservation);
+        Reservation newReservation = reservation;
+        List<Reservation> reservationList = reservationRepository.findAll();
 
-        return newReservation;
+        for(Reservation r : reservationList){
+            if((r.getReservationDate().equals(reservation.getReservationDate()))
+                    && r.getReservationPeriod().equals(reservation.getReservationPeriod())) {
+                newReservation = null;
+            }
+        }
+
+        if(newReservation != null){
+            return reservationRepository.save(newReservation);
+        }else return new Reservation();
     }
 }
