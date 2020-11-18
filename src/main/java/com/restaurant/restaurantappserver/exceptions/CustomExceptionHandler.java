@@ -17,4 +17,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         NotFoundExceptionResponse response = new NotFoundExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex, WebRequest request){
+        EmailAlreadyExistsResponse response = new EmailAlreadyExistsResponse(ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
