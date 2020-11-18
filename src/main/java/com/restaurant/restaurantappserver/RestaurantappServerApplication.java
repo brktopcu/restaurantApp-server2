@@ -1,5 +1,6 @@
 package com.restaurant.restaurantappserver;
 
+import com.restaurant.restaurantappserver.security.JwtAuthenticationFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
