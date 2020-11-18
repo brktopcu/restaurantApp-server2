@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +35,8 @@ public class ReservationController {
     @PostMapping("/{tableId}")
     public ResponseEntity<?> saveReservation(@Valid @RequestBody Reservation reservation,
                                              BindingResult bindingResult,
-                                             @PathVariable Long tableId){
+                                             @PathVariable Long tableId,
+                                             Principal principal){
 
         ResponseEntity<?> errorMap = validationErrorService.validationMap(bindingResult);
 
@@ -42,7 +44,8 @@ public class ReservationController {
 
 
         Rtable reservationTable = tableService.getById(tableId);
-        Reservation reservationToSave = reservationService.saveNewReservation(reservation, reservationTable);
+        Reservation reservationToSave = reservationService
+                .saveNewReservation(reservation, reservationTable, principal.getName());
         if(reservationToSave.getReservationDate() == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(reservationToSave, HttpStatus.CREATED);

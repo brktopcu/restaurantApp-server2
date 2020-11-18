@@ -4,9 +4,11 @@ import com.restaurant.restaurantappserver.domain.Reservation;
 import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.ReservationRepository;
+import com.restaurant.restaurantappserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Reservation getBydId(Long id) {
@@ -31,8 +34,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation saveNewReservation(Reservation reservation, Rtable rtable) {
+    public Reservation saveNewReservation(Reservation reservation, Rtable rtable, String username) {
         reservation.setRtable(rtable);
+        reservation.setUser(userRepository.findByUsername(username));
 
         Reservation newReservation = reservation;
         List<Reservation> reservationList = reservationRepository.findAll();
