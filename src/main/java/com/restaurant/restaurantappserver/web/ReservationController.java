@@ -17,6 +17,7 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reservation")
+@CrossOrigin
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -31,7 +32,6 @@ public class ReservationController {
         return new ResponseEntity<>(reservationFound, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PostMapping("/{tableId}")
     public ResponseEntity<?> saveReservation(@Valid @RequestBody Reservation reservation,
                                              BindingResult bindingResult,

@@ -28,21 +28,21 @@ public class ApplicationUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @NotBlank(message = "Username is required")
+    @NotBlank(message = "Kullanıcı adı gereklidir")
     @Email(message = "Username should be an e-mail")
     @Column(unique = true)
     private String username;
 
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "Tam adınız gereklidir")
     private String fullName;
 
-    @NotBlank(message = "Password field is required")
+    @NotBlank(message = "Şifre gereklidir")
     private String password;
 
     @Transient
     private String confirmPassword;
 
-    @NotBlank(message = "Phone number is required")
+    @NotBlank(message = "Telefon numarası gereklidir")
     private String phoneNumber;
     
     private Date createdDate;

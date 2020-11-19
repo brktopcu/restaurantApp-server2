@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
+@CrossOrigin
 public class CommentController {
 
     private final CommentService commentService;
@@ -41,7 +42,6 @@ public class CommentController {
 
     }
 
-    @CrossOrigin
     @PostMapping("/{restaurantId}")
     public ResponseEntity<?> saveComment(@Valid @RequestBody Comment comment,
                                          BindingResult bindingResult,

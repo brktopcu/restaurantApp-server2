@@ -1,7 +1,6 @@
 package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
-import com.restaurant.restaurantappserver.services.HeaderService;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/restaurant")
+@CrossOrigin
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final ValidationErrorService validationErrorService;
-    private final HeaderService headerService;
 
     @PostMapping
     public ResponseEntity<?> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, BindingResult result){
@@ -37,14 +36,14 @@ public class RestaurantController {
     public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId){
         Restaurant restaurantFound = restaurantService.getById(restaurantId);
 
-        return new ResponseEntity<>(restaurantFound, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantFound, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants(){
         List<Restaurant> restaurantList = restaurantService.getAllRestaurants();
 
-        return new ResponseEntity<>(restaurantList, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantList, HttpStatus.OK);
 
     }
 
@@ -52,7 +51,7 @@ public class RestaurantController {
     public ResponseEntity<List<Restaurant>> searchRestaurantName(@PathVariable String searchTerm){
         List<Restaurant> restaurantList = restaurantService.searchByRestaurantName(searchTerm);
 
-        return new ResponseEntity<>(restaurantList, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(restaurantList, HttpStatus.OK);
 
     }
 
@@ -60,14 +59,14 @@ public class RestaurantController {
     public ResponseEntity<List<String>> getRestaurantCities(){
         List<String> cityList = restaurantService.findDistinctRestaurantCities();
 
-        return new ResponseEntity<>(cityList, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(cityList, HttpStatus.OK);
     }
 
     @GetMapping("/search/categories")
     public ResponseEntity<List<String>> getRestaurantCategories(){
         List<String> categoryList = restaurantService.findDistinctRestaurantCategories();
 
-        return new ResponseEntity<>(categoryList, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
 
 }
