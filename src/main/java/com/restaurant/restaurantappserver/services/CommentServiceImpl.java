@@ -1,9 +1,11 @@
 package com.restaurant.restaurantappserver.services;
 
+import com.restaurant.restaurantappserver.domain.ApplicationUser;
 import com.restaurant.restaurantappserver.domain.Comment;
 import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.CommentRepository;
+import com.restaurant.restaurantappserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Comment getById(Long id) {
@@ -37,8 +40,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment saveNewComment(Comment comment, Restaurant restaurant) {
-
+    public Comment saveNewComment(Comment comment, Restaurant restaurant, String username) {
+        ApplicationUser user = userRepository.findByUsername(username);
+        comment.setUser(user);
+        comment.setCommentWriter(user.getFullName());
         comment.setRestaurant(restaurant);
         Date date = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yyyy");

@@ -29,6 +29,8 @@ public class Comment {
 
     private String commentDate;
 
+    private String commentWriter;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")

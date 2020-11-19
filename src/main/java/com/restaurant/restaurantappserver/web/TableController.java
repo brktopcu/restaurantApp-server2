@@ -2,7 +2,6 @@ package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.domain.Rtable;
-import com.restaurant.restaurantappserver.services.HeaderService;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.TableService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
@@ -18,28 +17,29 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/table")
-@CrossOrigin
 public class TableController {
 
     private final TableService tableService;
     private final RestaurantService restaurantService;
     private final ValidationErrorService validationErrorService;
-    private final HeaderService headerService;
 
     @GetMapping("/{tableId}")
+    @CrossOrigin
     public ResponseEntity<Rtable> getTable(@PathVariable Long tableId){
         Rtable rtable = tableService.getById(tableId);
         return new ResponseEntity<>(rtable, HttpStatus.OK);
     }
 
     @GetMapping("/all/{restaurantId}")
+    @CrossOrigin
     public ResponseEntity<List<Rtable>> getAllTablesForRestaurant(@PathVariable Long restaurantId){
         List<Rtable> rtableList = tableService.getAllTablesForRestaurant(restaurantId);
 
-        return new ResponseEntity<>(rtableList, headerService.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(rtableList, HttpStatus.OK);
     }
 
     @PostMapping("/{restaurantId}")
+    @CrossOrigin
     public ResponseEntity<?> saveTable(@Valid @RequestBody Rtable rtable,
                                        BindingResult bindingResult,
                                        @PathVariable Long restaurantId){

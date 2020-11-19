@@ -17,7 +17,6 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reservation")
-@CrossOrigin
 public class ReservationController {
 
     private final ReservationService reservationService;
@@ -25,6 +24,7 @@ public class ReservationController {
     private final TableService tableService;
 
     @GetMapping("/{id}")
+    @CrossOrigin
     public ResponseEntity<Reservation> getReservation(@PathVariable Long id){
 
         Reservation reservationFound = reservationService.getBydId(id);
@@ -33,6 +33,7 @@ public class ReservationController {
     }
 
     @PostMapping("/{tableId}")
+    @CrossOrigin
     public ResponseEntity<?> saveReservation(@Valid @RequestBody Reservation reservation,
                                              BindingResult bindingResult,
                                              @PathVariable Long tableId,

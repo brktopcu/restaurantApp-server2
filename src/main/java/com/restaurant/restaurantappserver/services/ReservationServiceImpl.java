@@ -43,7 +43,8 @@ public class ReservationServiceImpl implements ReservationService {
 
         for(Reservation r : reservationList){
             if((r.getReservationDate().equals(reservation.getReservationDate()))
-                    && r.getReservationPeriod().equals(reservation.getReservationPeriod())) {
+                    && r.getReservationPeriod().equals(reservation.getReservationPeriod())
+                    && r.getRtable().getTableId().equals(reservation.getRtable().getTableId())) {
                 newReservation = null;
             }
         }

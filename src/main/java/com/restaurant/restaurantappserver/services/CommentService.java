@@ -11,5 +11,5 @@ public interface CommentService {
 
     List<Comment> getAllComments(Long restaurantId);
 
-    Comment saveNewComment(Comment comment, Restaurant restaurant);
+    Comment saveNewComment(Comment comment, Restaurant restaurant, String username);
 }
