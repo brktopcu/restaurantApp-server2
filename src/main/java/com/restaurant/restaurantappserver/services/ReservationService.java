@@ -11,5 +11,7 @@ public interface ReservationService {
 
     List<Reservation> getAllReservations();
 
+    List<Reservation> getReservationsByUserId(Long userId);
+
     Reservation saveNewReservation(Reservation reservation, Rtable rtable, String username);
 }

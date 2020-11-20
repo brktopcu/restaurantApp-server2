@@ -34,6 +34,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> getReservationsByUserId(Long userId) {
+       return reservationRepository.findReservationsByUser_UserId(userId);
+    }
+
+    @Override
     public Reservation saveNewReservation(Reservation reservation, Rtable rtable, String username) {
         reservation.setRtable(rtable);
         reservation.setUser(userRepository.findByUsername(username));

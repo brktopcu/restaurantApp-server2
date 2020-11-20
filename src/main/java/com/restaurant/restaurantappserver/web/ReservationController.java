@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +31,14 @@ public class ReservationController {
         Reservation reservationFound = reservationService.getBydId(id);
 
         return new ResponseEntity<>(reservationFound, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    @CrossOrigin
+    public ResponseEntity<List<Reservation>> getUserReservations(@PathVariable Long userId){
+        List<Reservation> reservationList = reservationService.getReservationsByUserId(userId);
+
+        return new ResponseEntity<>(reservationList, HttpStatus.OK);
     }
 
     @PostMapping("/{tableId}")
