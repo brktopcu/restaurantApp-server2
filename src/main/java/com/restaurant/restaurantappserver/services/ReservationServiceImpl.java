@@ -1,9 +1,11 @@
 package com.restaurant.restaurantappserver.services;
 
 import com.restaurant.restaurantappserver.domain.Reservation;
+import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.ReservationRepository;
+import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
 import com.restaurant.restaurantappserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final UserRepository userRepository;
+    private final RestaurantService restaurantService;
 
     @Override
     public Reservation getBydId(Long id) {
@@ -40,7 +43,10 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public Reservation saveNewReservation(Reservation reservation, Rtable rtable, String username) {
+        Restaurant restaurant = restaurantService.getById(rtable.getRestaurant().getRestaurantId());
+        reservation.setRestaurantName(restaurant.getRestaurantName());
         reservation.setRtable(rtable);
+        reservation.setReservationTable(rtable.getTableName());
         reservation.setUser(userRepository.findByUsername(username));
 
         Reservation newReservation = reservation;
@@ -57,5 +63,10 @@ public class ReservationServiceImpl implements ReservationService {
         if(newReservation != null){
             return reservationRepository.save(newReservation);
         }else return new Reservation();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        reservationRepository.deleteById(id);
     }
 }

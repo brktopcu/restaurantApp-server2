@@ -37,6 +37,10 @@ public class Reservation {
 
     private String reservationNote;
 
+    private String restaurantName;
+
+    private String reservationTable;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "rtable_id")

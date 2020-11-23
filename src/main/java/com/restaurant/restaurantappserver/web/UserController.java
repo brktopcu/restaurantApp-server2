@@ -24,6 +24,7 @@ import static com.restaurant.restaurantappserver.security.SecurityConstants.TOKE
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
 
     private final ValidationErrorService validationErrorService;
@@ -33,7 +34,6 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    @CrossOrigin
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
         ResponseEntity<?> errorMap = validationErrorService.validationMap(result);
         if(errorMap != null) return errorMap;
@@ -52,7 +52,6 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    @CrossOrigin
     public ResponseEntity<?> registerUser(@Valid @RequestBody ApplicationUser user, BindingResult result){
 
         userValidator.validate(user,result);

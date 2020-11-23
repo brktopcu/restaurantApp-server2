@@ -2,6 +2,7 @@ package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Reservation;
 import com.restaurant.restaurantappserver.domain.Rtable;
+import com.restaurant.restaurantappserver.services.HeaderService;
 import com.restaurant.restaurantappserver.services.ReservationService;
 import com.restaurant.restaurantappserver.services.TableService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
@@ -18,14 +19,15 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reservation")
+@CrossOrigin
 public class ReservationController {
 
     private final ReservationService reservationService;
     private final ValidationErrorService validationErrorService;
     private final TableService tableService;
+    private final HeaderService headerService;
 
     @GetMapping("/{id}")
-    @CrossOrigin
     public ResponseEntity<Reservation> getReservation(@PathVariable Long id){
 
         Reservation reservationFound = reservationService.getBydId(id);
@@ -34,7 +36,6 @@ public class ReservationController {
     }
 
     @GetMapping("/user/{userId}")
-    @CrossOrigin
     public ResponseEntity<List<Reservation>> getUserReservations(@PathVariable Long userId){
         List<Reservation> reservationList = reservationService.getReservationsByUserId(userId);
 
@@ -42,7 +43,6 @@ public class ReservationController {
     }
 
     @PostMapping("/{tableId}")
-    @CrossOrigin
     public ResponseEntity<?> saveReservation(@Valid @RequestBody Reservation reservation,
                                              BindingResult bindingResult,
                                              @PathVariable Long tableId,
@@ -60,5 +60,11 @@ public class ReservationController {
 
         return new ResponseEntity<>(reservationToSave, HttpStatus.CREATED);
 
+    }
+
+    @DeleteMapping("/delete/{reservationId}")
+    public ResponseEntity<String> deleteReservation(@PathVariable Long reservationId){
+        reservationService.deleteById(reservationId);
+        return new ResponseEntity<>("Reservation with id: "+ reservationId + " is deleted",HttpStatus.OK);
     }
 }

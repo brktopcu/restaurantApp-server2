@@ -14,4 +14,6 @@ public interface ReservationService {
     List<Reservation> getReservationsByUserId(Long userId);
 
     Reservation saveNewReservation(Reservation reservation, Rtable rtable, String username);
+
+    void deleteById(Long id);
 }

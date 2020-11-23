@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
+@CrossOrigin
 public class CommentController {
 
     private final CommentService commentService;
@@ -24,7 +25,6 @@ public class CommentController {
     private final ValidationErrorService validationErrorService;
 
     @GetMapping("/{commentId}")
-    @CrossOrigin
     public ResponseEntity<Comment> getComment(@PathVariable Long commentId){
 
         Comment commentFound = commentService.getById(commentId);
@@ -33,7 +33,6 @@ public class CommentController {
     }
 
     @GetMapping("/all/{restaurantId}")
-    @CrossOrigin
     public ResponseEntity<List<Comment>> getAllComments(@PathVariable Long restaurantId){
 
         List<Comment> comments = commentService.getAllComments(restaurantId);
@@ -43,7 +42,6 @@ public class CommentController {
     }
 
     @PostMapping("/{restaurantId}")
-    @CrossOrigin
     public ResponseEntity<?> saveComment(@Valid @RequestBody Comment comment,
                                          BindingResult bindingResult,
                                          @PathVariable Long restaurantId, Principal principal){

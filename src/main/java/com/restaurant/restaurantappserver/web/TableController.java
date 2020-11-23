@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/table")
+@CrossOrigin
 public class TableController {
 
     private final TableService tableService;
@@ -24,14 +25,12 @@ public class TableController {
     private final ValidationErrorService validationErrorService;
 
     @GetMapping("/{tableId}")
-    @CrossOrigin
     public ResponseEntity<Rtable> getTable(@PathVariable Long tableId){
         Rtable rtable = tableService.getById(tableId);
         return new ResponseEntity<>(rtable, HttpStatus.OK);
     }
 
     @GetMapping("/all/{restaurantId}")
-    @CrossOrigin
     public ResponseEntity<List<Rtable>> getAllTablesForRestaurant(@PathVariable Long restaurantId){
         List<Rtable> rtableList = tableService.getAllTablesForRestaurant(restaurantId);
 
@@ -39,7 +38,6 @@ public class TableController {
     }
 
     @PostMapping("/{restaurantId}")
-    @CrossOrigin
     public ResponseEntity<?> saveTable(@Valid @RequestBody Rtable rtable,
                                        BindingResult bindingResult,
                                        @PathVariable Long restaurantId){

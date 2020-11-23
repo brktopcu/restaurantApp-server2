@@ -15,13 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/restaurant")
+@CrossOrigin
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final ValidationErrorService validationErrorService;
 
     @PostMapping
-    @CrossOrigin
     public ResponseEntity<?> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, BindingResult result){
 
         ResponseEntity<?> errorMap = validationErrorService.validationMap(result);
@@ -33,7 +33,6 @@ public class RestaurantController {
     }
 
     @GetMapping("/{restaurantId}")
-    @CrossOrigin
     public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId){
         Restaurant restaurantFound = restaurantService.getById(restaurantId);
 
@@ -41,7 +40,6 @@ public class RestaurantController {
     }
 
     @GetMapping
-    @CrossOrigin
     public ResponseEntity<List<Restaurant>> getAllRestaurants(){
         List<Restaurant> restaurantList = restaurantService.getAllRestaurants();
 
@@ -50,7 +48,6 @@ public class RestaurantController {
     }
 
     @GetMapping("/search/{searchTerm}")
-    @CrossOrigin
     public ResponseEntity<List<Restaurant>> searchRestaurantName(@PathVariable String searchTerm){
         List<Restaurant> restaurantList = restaurantService.searchByRestaurantName(searchTerm);
 
@@ -59,7 +56,6 @@ public class RestaurantController {
     }
 
     @GetMapping("/search/cities")
-    @CrossOrigin
     public ResponseEntity<List<String>> getRestaurantCities(){
         List<String> cityList = restaurantService.findDistinctRestaurantCities();
 
@@ -67,7 +63,6 @@ public class RestaurantController {
     }
 
     @GetMapping("/search/categories")
-    @CrossOrigin
     public ResponseEntity<List<String>> getRestaurantCategories(){
         List<String> categoryList = restaurantService.findDistinctRestaurantCategories();
 
