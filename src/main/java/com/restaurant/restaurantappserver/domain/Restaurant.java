@@ -6,7 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -50,6 +52,13 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_favourite",
+            joinColumns = {@JoinColumn(name = "restaurant_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<ApplicationUser> userFavourite = new HashSet<>();
 
 
 

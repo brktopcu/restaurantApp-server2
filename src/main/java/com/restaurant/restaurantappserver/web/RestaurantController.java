@@ -10,7 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -67,6 +69,27 @@ public class RestaurantController {
         List<String> categoryList = restaurantService.findDistinctRestaurantCategories();
 
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
+    }
+
+    @PostMapping("/favourite/{restaurantId}")
+    public ResponseEntity<Restaurant> addRestaurantAsFavourite(@PathVariable Long restaurantId, Principal principal){
+        Restaurant restaurant = restaurantService.saveRestaurantAsFavourite(restaurantId, principal.getName());
+
+        return new ResponseEntity<>(restaurant, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/favourite")
+    public ResponseEntity<Set<Restaurant>> getFavouriteRestaurants(Principal principal){
+        Set<Restaurant> favouriteRestaurants = restaurantService.getFavouriteRestaurants(principal.getName());
+
+        return new ResponseEntity<>(favouriteRestaurants, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/favourite/delete/{restaurantId}")
+    public ResponseEntity<String> deleteFromFavourites(@PathVariable Long restaurantId, Principal principal){
+        String msg = restaurantService.deleteFavourite(restaurantId, principal.getName());
+
+        return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
 }
