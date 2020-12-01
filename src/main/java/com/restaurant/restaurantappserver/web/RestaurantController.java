@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,6 +33,16 @@ public class RestaurantController {
         return new ResponseEntity<>(newRestaurant, HttpStatus.CREATED);
 
     }
+
+    @PostMapping("/thumbnail/{restaurantId}")
+    public ResponseEntity<?> saveRestaurantThumbnail(@RequestParam("imageFile") MultipartFile imageFile,
+                                                     @PathVariable Long restaurantId) throws IOException {
+
+        Restaurant restaurant = restaurantService.saveRestaurantThumbnail(restaurantId, imageFile.getBytes());
+
+        return new ResponseEntity<>(restaurant,HttpStatus.OK);
+    }
+
 
     @GetMapping("/{restaurantId}")
     public ResponseEntity<?> getRestaurantById(@PathVariable Long restaurantId){

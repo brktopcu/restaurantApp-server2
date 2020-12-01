@@ -12,6 +12,8 @@ public interface RestaurantService {
 
     Restaurant saveNewRestaurant(Restaurant restaurant);
 
+    Restaurant saveRestaurantThumbnail(Long restaurantId, byte[] thumbnail);
+
     List<Restaurant> searchByRestaurantName(String search);
 
     List<String> findDistinctRestaurantCities();

@@ -6,6 +6,7 @@ import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +64,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         if(foundCategories.isEmpty()) throw new NotFoundException("Search results are empty!");
 
         return foundCategories;
+    }
+
+    @Override
+    public Restaurant saveRestaurantThumbnail(Long restaurantId, byte[] thumbnail) {
+        Optional<Restaurant> restaurantOptional = restaurantRepository.findById(restaurantId);
+        Restaurant restaurant = restaurantOptional.get();
+        restaurant.setThumbnail(Base64.getEncoder().encodeToString(thumbnail));
+        return restaurantRepository.save(restaurant);
     }
 }
