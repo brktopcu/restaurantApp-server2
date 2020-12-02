@@ -3,6 +3,7 @@ package com.restaurant.restaurantappserver.services;
 import com.restaurant.restaurantappserver.domain.Restaurant;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RestaurantService {
 
@@ -13,6 +14,13 @@ public interface RestaurantService {
     Restaurant saveNewRestaurant(Restaurant restaurant);
 
     Restaurant saveRestaurantThumbnail(Long restaurantId, byte[] thumbnail);
+
+    Restaurant saveRestaurantAsFavourite(Long restaurantId, String username);
+
+    Set<Restaurant> getFavouriteRestaurants(String username);
+
+    String deleteFavourite(Long restaurantId, String username);
+
 
     List<Restaurant> searchByRestaurantName(String search);
 

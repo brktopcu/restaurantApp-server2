@@ -1,20 +1,24 @@
 package com.restaurant.restaurantappserver.services;
 
+import com.restaurant.restaurantappserver.domain.ApplicationUser;
 import com.restaurant.restaurantappserver.domain.Restaurant;
 import com.restaurant.restaurantappserver.exceptions.NotFoundException;
 import com.restaurant.restaurantappserver.repositories.RestaurantRepository;
+import com.restaurant.restaurantappserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Restaurant getById(Long restaurantId) {
@@ -73,4 +77,43 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurant.setThumbnail(Base64.getEncoder().encodeToString(thumbnail));
         return restaurantRepository.save(restaurant);
     }
+
+    @Override
+    public Restaurant saveRestaurantAsFavourite(Long restaurantId, String username) {
+        try {
+            ApplicationUser user = userRepository.findByUsername(username);
+            Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+            restaurant.ifPresent(restaurant1 -> restaurant1.getUserFavourite().add(user));
+            user.getFavouriteRestaurants().add(restaurant.get());
+            userRepository.save(user);
+            return restaurantRepository.save(restaurant.get());
+
+        }catch (Exception e){
+            return new Restaurant();
+        }
+    }
+
+    @Override
+    public Set<Restaurant> getFavouriteRestaurants(String username) {
+        ApplicationUser user = userRepository.findByUsername(username);
+        return user.getFavouriteRestaurants();
+    }
+
+    @Override
+    public String deleteFavourite(Long restaurantId, String username) {
+
+        try {
+            ApplicationUser user = userRepository.findByUsername(username);
+            Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+            restaurant.ifPresent(restaurant1 -> restaurant1.getUserFavourite().remove(user));
+            user.getFavouriteRestaurants().remove(restaurant.get());
+            userRepository.save(user);
+            restaurantRepository.save(restaurant.get());
+            return "Restaurant deleted from favourites";
+
+        }catch (Exception e){
+            return e.getMessage();
+        }
+    }
+
 }

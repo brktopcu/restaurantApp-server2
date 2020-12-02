@@ -11,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Getter
@@ -58,6 +55,9 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Comment> commentList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "userFavourite", cascade = CascadeType.ALL)
+    Set<Restaurant> favouriteRestaurants = new HashSet<>();
 
 
     //User Details Implementations
