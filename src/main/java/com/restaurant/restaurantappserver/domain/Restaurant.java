@@ -70,9 +70,4 @@ public class Restaurant {
     private Set<ApplicationUser> userFavourite = new HashSet<>();
 
 
-
-    //TODO add pictures
-    //TODO add thumbnail
-    //TODO add menu pic
-
 }
