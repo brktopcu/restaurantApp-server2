@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -41,6 +42,8 @@ public class ApplicationUser implements UserDetails {
 
     @NotBlank(message = "Telefon numarası gereklidir")
     private String phoneNumber;
+
+    private String roles = "";
     
     private Date createdDate;
 
@@ -59,12 +62,25 @@ public class ApplicationUser implements UserDetails {
     @ManyToMany(mappedBy = "userFavourite", cascade = CascadeType.ALL)
     Set<Restaurant> favouriteRestaurants = new HashSet<>();
 
+    public List<String> getRoleList(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 
     //User Details Implementations
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        this.getRoleList().forEach(r -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
+            authorities.add(authority);
+        });
+
+        return authorities;
     }
 
     @Override

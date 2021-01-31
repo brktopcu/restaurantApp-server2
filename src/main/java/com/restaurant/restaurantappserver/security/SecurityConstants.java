@@ -2,6 +2,7 @@ package com.restaurant.restaurantappserver.security;
 
 public class SecurityConstants {
     public static final String SIGN_UP_URLS = "/api/users/**";
+    public static final String ADMIN_URL = "/api/admin/**";
     public static final String H2_URL = "h2-console/**";
     public static final String SECRET = "MyJWTSecret";
     public static final String TOKEN_PREFIX = "Bearer ";

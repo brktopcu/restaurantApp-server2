@@ -15,8 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.restaurant.restaurantappserver.security.SecurityConstants.H2_URL;
-import static com.restaurant.restaurantappserver.security.SecurityConstants.SIGN_UP_URLS;
+import static com.restaurant.restaurantappserver.security.SecurityConstants.*;
 
 @Configuration
 @EnableWebSecurity
@@ -66,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js").permitAll()
                 .antMatchers(SIGN_UP_URLS).permitAll()
                 .antMatchers(H2_URL).permitAll()
+                .antMatchers(ADMIN_URL).hasRole("ADMIN")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
