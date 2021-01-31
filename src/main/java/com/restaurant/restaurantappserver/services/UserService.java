@@ -4,4 +4,5 @@ import com.restaurant.restaurantappserver.domain.ApplicationUser;
 
 public interface UserService {
     ApplicationUser saveUser(ApplicationUser newUser);
+    String deleteUser(Long id);
 }

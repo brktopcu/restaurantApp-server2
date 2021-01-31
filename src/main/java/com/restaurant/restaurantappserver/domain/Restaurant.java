@@ -33,9 +33,9 @@ public class Restaurant {
 
     private String restaurantCategory;
 
-    private Double restaurantRating;
+    private Double restaurantRating=0.0;
 
-    private Integer totalRating;
+    private Integer totalRating=0;
 
     private Integer timesRated = 0;
 

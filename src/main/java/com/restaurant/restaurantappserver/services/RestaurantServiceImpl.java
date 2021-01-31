@@ -116,4 +116,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
     }
 
+    @Override
+    public String deleteRestaurant(Long restaurantId) {
+        try{
+            restaurantRepository.deleteById(restaurantId);
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return "Restaurant deleted";
+    }
 }

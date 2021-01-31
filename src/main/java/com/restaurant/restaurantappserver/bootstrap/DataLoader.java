@@ -1,12 +1,12 @@
 package com.restaurant.restaurantappserver.bootstrap;
 
+import com.restaurant.restaurantappserver.domain.ApplicationUser;
 import com.restaurant.restaurantappserver.domain.Restaurant;
+import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Component
@@ -16,6 +16,7 @@ public class DataLoader implements CommandLineRunner {
     private final TableRepository tableRepository;
     private final ReservationRepository reservationRepository;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -87,6 +88,26 @@ public class DataLoader implements CommandLineRunner {
         restaurantRepository.save(r3);
         restaurantRepository.save(r4);
         restaurantRepository.save(r5);
+
+        Rtable t1 = Rtable.builder()
+                .restaurant(r1)
+                .tableName("Teras 1")
+                .tableCapacity(4)
+                .tableDescription("Teras")
+                .build();
+
+        tableRepository.save(t1);
+
+        ApplicationUser admin = ApplicationUser.builder()
+                .username("admin@admin.com")
+                .fullName("Admin")
+                .password("123456")
+                .confirmPassword("123456")
+                .phoneNumber("555555")
+                .roles("ADMIN")
+                .build();
+
+        userRepository.save(admin);
 
 
 

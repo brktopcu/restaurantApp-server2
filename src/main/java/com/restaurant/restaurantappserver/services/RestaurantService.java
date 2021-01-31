@@ -21,6 +21,7 @@ public interface RestaurantService {
 
     String deleteFavourite(Long restaurantId, String username);
 
+    String deleteRestaurant(Long restaurantId);
 
     List<Restaurant> searchByRestaurantName(String search);
 
