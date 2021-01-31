@@ -4,10 +4,12 @@ import com.restaurant.restaurantappserver.domain.ApplicationUser;
 import com.restaurant.restaurantappserver.payload.JWTLoginSuccessResponse;
 import com.restaurant.restaurantappserver.payload.LoginRequest;
 import com.restaurant.restaurantappserver.security.JwtTokenProvider;
+import com.restaurant.restaurantappserver.services.CustomUserDetailsService;
 import com.restaurant.restaurantappserver.services.UserService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
 import com.restaurant.restaurantappserver.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +34,7 @@ public class UserController {
     private final UserValidator userValidator;
     private final JwtTokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result){
@@ -62,5 +65,10 @@ public class UserController {
         ApplicationUser newUser = userService.saveUser(user);
 
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<ApplicationUser> getUserById(@PathVariable Long id){
+        return new ResponseEntity<>(customUserDetailsService.loadUserById(id),HttpStatus.OK);
     }
 }
