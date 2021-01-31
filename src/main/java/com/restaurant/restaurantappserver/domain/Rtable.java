@@ -25,7 +25,7 @@ public class Rtable {
     private String tableName;
 
     @NotNull(message = "Table capacity is required")
-    private int tableCapacity;
+    private Integer tableCapacity;
 
     private String tableDescription;
 
@@ -36,6 +36,12 @@ public class Rtable {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    public Rtable(String tableName, Integer tableCapacity, Restaurant restaurant ){
+        this.tableName=tableName;
+        this.tableCapacity=tableCapacity;
+        this.restaurant=restaurant;
+    }
 
 
 

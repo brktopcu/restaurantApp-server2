@@ -14,4 +14,6 @@ public interface TableService {
 
     Rtable saveNewTable(Rtable rtable, Restaurant restaurant);
 
+    String saveMultipleTables(Integer numberOfTables, Integer tableCapacity, Restaurant restaurant);
+
 }

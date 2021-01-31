@@ -51,4 +51,13 @@ public class TableController {
         return new ResponseEntity<>(savedTable, HttpStatus.CREATED);
     }
 
+    @PostMapping("/multiple/{numberOfTables}/{tableCapacity}/{restaurantId}")
+    public ResponseEntity<String> saveMultiple (@PathVariable Integer numberOfTables,
+                                           @PathVariable Integer tableCapacity,
+                                           @PathVariable Long restaurantId){
+        Restaurant restaurant = restaurantService.getById(restaurantId);
+        return new ResponseEntity<>(tableService.saveMultipleTables(numberOfTables,tableCapacity,restaurant),
+                HttpStatus.CREATED);
+    }
+
 }

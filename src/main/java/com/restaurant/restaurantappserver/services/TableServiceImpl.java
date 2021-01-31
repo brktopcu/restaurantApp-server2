@@ -37,5 +37,12 @@ public class TableServiceImpl implements TableService {
         return tableRepository.save(rtable);
     }
 
+    @Override
+    public String saveMultipleTables(Integer numberOfTables, Integer tableCapacity, Restaurant restaurant) {
+        for(int i=1; i<=numberOfTables;i++){
+            tableRepository.save(new Rtable("M"+i,tableCapacity,restaurant));
+        }
 
+        return "Tables created";
+    }
 }
