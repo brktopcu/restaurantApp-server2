@@ -48,8 +48,8 @@ public class Restaurant {
     @Lob
     private byte[] menuPicture;
 
-    @Lob
-    private List<byte[]> pictures = new ArrayList<>();
+//    @Lob
+//    private List<byte[]> pictures = new ArrayList<>();
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Rtable> tableList = new ArrayList<>();

@@ -104,4 +104,11 @@ public class RestaurantController {
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{restaurantId}")
+    public ResponseEntity<String> deleteRestaurantById(@PathVariable Long restaurantId){
+        String msg =restaurantService.deleteRestaurant(restaurantId);
+        return new ResponseEntity<>(msg,HttpStatus.OK);
+    }
+
+
 }
