@@ -51,6 +51,7 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<RestaurantPicture> pictures = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Rtable> tableList = new ArrayList<>();
 
