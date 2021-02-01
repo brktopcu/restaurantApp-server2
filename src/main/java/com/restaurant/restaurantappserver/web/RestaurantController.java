@@ -1,6 +1,8 @@
 package com.restaurant.restaurantappserver.web;
 
 import com.restaurant.restaurantappserver.domain.Restaurant;
+import com.restaurant.restaurantappserver.domain.RestaurantPicture;
+import com.restaurant.restaurantappserver.services.RestaurantPictureService;
 import com.restaurant.restaurantappserver.services.RestaurantService;
 import com.restaurant.restaurantappserver.services.ValidationErrorService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final ValidationErrorService validationErrorService;
+    private final RestaurantPictureService restaurantPictureService;
 
     @PostMapping
     public ResponseEntity<?> saveNewRestaurant(@Valid @RequestBody Restaurant restaurant, BindingResult result){
@@ -110,5 +113,21 @@ public class RestaurantController {
         return new ResponseEntity<>(msg,HttpStatus.OK);
     }
 
+    @PostMapping("/addPicture/{restaurantId}")
+    public ResponseEntity<RestaurantPicture> addRestaurantPicture(@PathVariable Long restaurantId,
+                                                                  @RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 
+        Restaurant restaurantFound = restaurantService.getById(restaurantId);
+
+        RestaurantPicture savedPicture = restaurantPictureService.saveRestaurantPicture(
+                imageFile.getBytes(),restaurantFound);
+
+        return new ResponseEntity<>(savedPicture, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAllPictures/{restaurantId}")
+    public ResponseEntity<List<String>> getAllPictures(@PathVariable Long restaurantId){
+        return new ResponseEntity<>(restaurantPictureService.getAllPicturesByRestaurantId(restaurantId),
+                HttpStatus.OK);
+    }
 }
