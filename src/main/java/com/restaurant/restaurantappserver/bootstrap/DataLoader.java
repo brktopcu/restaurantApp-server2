@@ -6,6 +6,7 @@ import com.restaurant.restaurantappserver.domain.Rtable;
 import com.restaurant.restaurantappserver.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class DataLoader implements CommandLineRunner {
     private final ReservationRepository reservationRepository;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
@@ -101,8 +103,8 @@ public class DataLoader implements CommandLineRunner {
         ApplicationUser admin = ApplicationUser.builder()
                 .username("admin@admin.com")
                 .fullName("Admin")
-                .password("123456")
-                .confirmPassword("123456")
+                .password(bCryptPasswordEncoder.encode("123456"))
+                .confirmPassword(bCryptPasswordEncoder.encode("123456"))
                 .phoneNumber("555555")
                 .roles("ADMIN")
                 .build();
